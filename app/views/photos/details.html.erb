@@ -41,26 +41,28 @@
         Delete this photo
       </a>
     </dd>
-  </dl>
+  <% end %>
 
-  <% elsif @photo.poster.id != session.fetch(:user_id) %>
-    <% if @photo.fans.ids.include? session.fetch(:user_id) %>
-      <dt>Remove a fan</dt>
-      <dd>
-      </dd>
-
-    <% else %>
-    <dt>Add a fan</dt>
+  <% if @photo.fans.ids.include? session.fetch(:user_id) %>
+    <dt>Remove a fan</dt>
     <dd>
-      <form action="/insert_like">
-        <input id="browser_photo_id" type="hidden" value="<%= @photo.id %>" name="input_photo_id">
-        <button>
-          Like
-        </button>
-      </form>
+    <a href="/delete_like/<%= @photo.likes.where({:fan_id => session.fetch(:user_id), :photo_id => @photo.id}).at(0).id %>;">
+      Delete like
+    </a>
     </dd>
-    <% end%>
-<% end%>
+
+  <% else %>
+  <dt>Add a fan</dt>
+  <dd>
+    <form action="/insert_like">
+      <input id="browser_photo_id" type="hidden" value="<%= @photo.id %>" name="input_photo_id">
+      <button>
+        Like
+      </button>
+    </form>
+  </dd>
+  <% end%>
+</dl>
 
 <h2>Comments</h2>
 
@@ -91,7 +93,7 @@
 
 <h3>Add a new comment</h3>
 
-<form action="/insert_comment_record" method="post">
+<form action="/insert_comment_record">
   <label for="browser_photo_id">Photo ID</label>
   <input id="browser_photo_id" type="text" value="<%= @photo.id %>" name="input_photo_id">
 

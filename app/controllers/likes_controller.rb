@@ -10,12 +10,13 @@ class LikesController < ApplicationController
   end
 
   def destroy
-    p_id = params.fetch("input_photo_id")
-    f_id = session.fetch(:user_id)
-    like = Like.where({ :photo_id => pd_id, :fan_id => f_id }).at(0)
+    l_id = params.fetch("the_like_id")
+    like = Like.where({ :id => l_id}).at(0)
+    p_id = Photo.where({ :id => like.photo_id}).at(0).id
 
     like.destroy
-
+    
+    # redirect_to("/photos")
     redirect_to("/photos/#{p_id}")
   end
 end
