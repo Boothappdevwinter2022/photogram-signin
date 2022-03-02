@@ -7,9 +7,6 @@
   <label for="browser_caption">Caption</label>
   <textarea id="browser_caption" name="input_caption" placeholder="Enter a caption for the photo..."></textarea>
 
-  <label for="browser_user_id">Owner ID</label>
-  <input id="browser_user_id" type="text" name="input_owner_id" placeholder="Enter an ID of a User">
-
   <button>Add photo</button>
 </form>
 
@@ -27,7 +24,7 @@
   <% @photos.each do |photo| %>
   <tr>
     <td>
-      <img src="<%= photo.image %>">
+      <img src="<%= photo.image %>" width="300" height="300">
     </td>
 
     <td>
